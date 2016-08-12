@@ -96,6 +96,7 @@ module Chef
     #     [{"templateid"=>"13160", "host"=>"My Linux Template"}],
     #    "interfaces"=>[{"ip"=>"10.190.158.48"}]}
     def chef_node_to_zabbix_host(node_name)
+      node_name = node_name.name if node_name.respond_to? :name
       # get the chef node information
       node = ridley.node.find(node_name)
 
@@ -122,16 +123,17 @@ module Chef
     # returns a simple ridley node object from the given zabbix host id
     # partial_search is passed into ridley's partial_search function to return non-default
     #   attributes in the node object
-    def zabbix_host_to_chef_node(host_id, partial_search=[])
+    def zabbix_host_to_chef_node(hostid, partial_search=[])
+      hostid = hostid['hostid'] if hostid['hostid']
       hosts = zabbix.query(
         method: 'host.get',
         params: {
-          hostids: host_id.to_s,
+          hostids: hostid.to_s,
           output: %w(host name),
           selectInterfaces: ['ip'],
         }
       )
-      raise "Could not find Zabbix host with id '#{host_id}'" unless hosts.length == 0
+      raise "Could not find Zabbix host with id '#{hostid}'" unless hosts.length == 0
       host = hosts[0]
 
       # build an array of chef searches to try
