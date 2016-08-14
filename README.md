@@ -13,7 +13,7 @@ Install the gem from GitHub.
 ## Usage
 
 ```ruby
-require 'chef/zabbix'
+require 'chef_zabbix'
 
 # initialize the client that will communicate with the Zabbix and Chef apis
 client = Chef::Zabbix.new({

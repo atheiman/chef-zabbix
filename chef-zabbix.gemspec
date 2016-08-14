@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'chef/zabbix/version'
+require 'chef_zabbix/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'chef-zabbix'
-  spec.version       = Chef::Zabbix::VERSION
+  spec.version       = ChefZabbix::VERSION
   spec.authors       = ['Austin Heiman']
   spec.email         = ['atheimanksu@gmail.com']
 
