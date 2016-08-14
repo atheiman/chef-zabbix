@@ -1,6 +1,8 @@
-# Chef::Zabbix
+# chef-zabbix
 
 Library for integrating Chef and Zabbix. Provides a wrapper client that can call to Chef with [ridley](https://github.com/berkshelf/ridley) and to Zabbix with [zabbixapi](https://github.com/express42/zabbixapi).
+
+[YARDoc available at rubydoc.info](http://www.rubydoc.info/github/atheiman/chef-zabbix).
 
 > Currently only Zabbix server 2.2 is supported.
 
@@ -11,6 +13,8 @@ Install the gem from GitHub.
 ## Usage
 
 ```ruby
+require 'chef/zabbix'
+
 # initialize the client that will communicate with the Zabbix and Chef apis
 client = Chef::Zabbix.new({
   zabbix_url: 'http://zabbix.domain.net/api/api_jsonrpc.php',
