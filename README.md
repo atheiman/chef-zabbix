@@ -7,7 +7,7 @@ Library for integrating Chef and Zabbix. Provides a client that:
 - can lookup the Chef node that relates to a Zabbix host
 - can lookup the Zabbix host that relates to a Chef node
 
-[YARDoc available at rubydoc.info](http://www.rubydoc.info/github/atheiman/chef-zabbix).
+[YARDoc available at rubydoc.info](http://www.rubydoc.info/github/atheiman/chef-zabbix). Below is minimal usage information.
 
 > Currently only Zabbix server 2.2 is supported.
 
@@ -17,7 +17,8 @@ Install the gem from GitHub.
 
 ## Usage
 
-Initialize the client that can communicate with the Chef and Zabbix APIs:
+Initialize the client that can communicate with the Chef and Zabbix APIs. Chef connection info comes
+from a Chef config file (`knife.rb` / `client.rb`), Zabbix connection info should be passed into `new()`:
 
 ```ruby
 require 'chef_zabbix'
@@ -25,11 +26,12 @@ require 'chef_zabbix'
 client = ChefZabbix.new(
   zabbix_url: 'http://zabbix.domain.net/api/api_jsonrpc.php',
   zabbix_user: 'someuser',
-  zabbix_password: '5omeP@ssword'
+  zabbix_password: '5omeP@ssword',
+  chef_config: '/non/default/knife.rb' # defaults to ~/.chef/knife.rb or /etc/chef/client.rb
 )
 ```
 
-Get information about the Zabbix host that relates to a Chef node name
+Get information about the Zabbix host that relates to a Chef node name:
 
 ```ruby
 client.chef_node_to_zabbix_host('some-node')
