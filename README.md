@@ -1,6 +1,11 @@
 # chef-zabbix
 
-Library for integrating Chef and Zabbix. Provides a wrapper client that can call to Chef with [ridley](https://github.com/berkshelf/ridley) and to Zabbix with [zabbixapi](https://github.com/express42/zabbixapi).
+Library for integrating Chef and Zabbix. Provides a client that:
+
+- can call to Chef using [ridley](https://github.com/berkshelf/ridley)
+- Zabbix using [zabbixapi](https://github.com/express42/zabbixapi)
+- can lookup the Chef node that relates to a Zabbix host
+- can lookup the Zabbix host that relates to a Chef node
 
 [YARDoc available at rubydoc.info](http://www.rubydoc.info/github/atheiman/chef-zabbix).
 
@@ -126,5 +131,5 @@ node.chef_environment
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/atheiman/chef-zabbix.
+Bug reports and pull requests are welcome on GitHub at [github.com/atheiman/chef-zabbix](https://github.com/atheiman/chef-zabbix).
 
