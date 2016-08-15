@@ -5,7 +5,7 @@ require 'ridley'
 Ridley::Logging.logger.level = Logger.const_get 'ERROR' # get rid of Celluloid::TaskFiber warnings
 
 class ChefZabbix
-  # Initialize a new client that can communicate with Zabbix and Chef
+  # Initialize a client that can communicate with Chef and Zabbix
   #
   # @param opts [Hash] Options to initialize the client with
   # @option opts [String] :zabbix_url _required_ Zabbix server api url
@@ -40,6 +40,8 @@ class ChefZabbix
   end
 
   # Validate the Zabbix version
+  #
+  # @return [String]
   def zabbix_version
     # default the zabbix server version
     @zabbix_version = '2.2' unless defined? @zabbix_version
@@ -66,7 +68,8 @@ class ChefZabbix
 
   # Method to access a zabbixapi client (initialize it if necessary)
   #
-  # @return [ZabbixApi]
+  # @return [ZabbixApi] ZabbixApi client
+  # @see https://github.com/express42/zabbixapi
   def zabbix
     @zabbix if defined? @zabbix
     require_zabbixapi
@@ -209,7 +212,7 @@ class ChefZabbix
   # Find a Chef node from a Zabbix host id
   # @param hostid [String, Integer] Zabbix host id
   # @param partial_search [Array<String>] Limit the attributes to be returned by specifying them
-  #   in dotted hash notation
+  #   in dotted hash notation (lightens the load on the Chef server)
   # @return Ridley::NodeObject
   # @note NodeObjects returned from `partial_search` are not fully populated, call
   #   `NodeObject#reload` to get all of the node's data from the Chef server
