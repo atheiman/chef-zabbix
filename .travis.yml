@@ -6,10 +6,10 @@ rvm:
   - 2.2.4
 
 before_install:
-  - bash ./.travis/before_install.sh
+  - ./.travis/before_install.sh
 
 before_script:
-  - bash ./.travis/before_script.sh
+  - ./.travis/before_script.sh
 
 script:
-  - bash ./.travis/script.sh
+  - ./.travis/script.sh
