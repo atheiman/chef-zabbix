@@ -6,10 +6,21 @@ rvm:
   - 2.2.4
 
 before_install:
-  - ./.travis/before_install.sh
+  # https://www.zabbix.com/documentation/2.2/manual/installation/install_from_packages
+  - sudo wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
+  - sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
+  - sudo apt-get -q update
+  - sudo apt-get -qy install zabbix-server-mysql zabbix-frontend-php
+  - for f in $(sudo find /usr/share/doc/zabbix-frontend-php/examples -type f); do echo "$f"; sudo cat "$f"; done
+  - sudo cp .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
+  - sudo cp .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
+  - sudo cp .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
+  - sudo service apache2 restart
 
 before_script:
-  - ./.travis/before_script.sh
+  - bundle
+  - echo "before_script.sh pwd: $(pwd)"
+  - bundle exec ./.travis/create_zabbix_objects.rb
 
-script:
-  - ./.travis/script.sh
+script: .travis/script.sh
+  - echo "bundle exec rspec"
