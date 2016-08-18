@@ -2,5 +2,4 @@
 
 bundle
 echo "before_script.sh pwd: $(pwd)"
-bundle exec create_zabbix_objects.rb
-bundle exec rspec
+bundle exec ./.travis/create_zabbix_objects.rb

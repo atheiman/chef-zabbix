@@ -3,13 +3,13 @@ dist: trusty
 
 language: ruby
 rvm:
-  - 2.2.3
+  - 2.2.4
 
 before_install:
-  - sudo bash ./.travis/before_install.sh
+  - bash ./.travis/before_install.sh
 
 before_script:
-  - sudo bash ./.travis/before_script.sh
+  - bash ./.travis/before_script.sh
 
 script:
   - bash ./.travis/script.sh
