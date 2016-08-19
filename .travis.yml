@@ -6,9 +6,9 @@ rvm:
   - 2.2.4
 
 before_install:
-- sudo --parents cp .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
-- sudo --parents cp .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
-- sudo --parents cp .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
+- sudo cp --parents .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
+- sudo cp --parents .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
+- sudo cp --parents .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
 # https://www.zabbix.com/documentation/2.2/manual/installation/install_from_packages
 - sudo wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
 - sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
