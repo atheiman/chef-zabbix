@@ -11,7 +11,6 @@ before_install:
   - sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
   - sudo apt-get -q update
   - sudo apt-get -qy install zabbix-server-mysql zabbix-frontend-php
-  - for f in $(sudo find /usr/share/doc/zabbix-frontend-php/examples -type f); do echo "$f"; sudo cat "$f"; done
   - sudo cp .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
   - sudo cp .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
   - sudo cp .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
