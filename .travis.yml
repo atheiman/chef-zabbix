@@ -6,19 +6,21 @@ rvm:
   - 2.2.4
 
 before_install:
-- sudo mkdir -p /etc/apache2/conf-available && sudo cp .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
-- sudo mkdir -p /etc/zabbix && sudo cp .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
-- sudo mkdir -p /etc/zabbix/web && sudo cp .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
-# https://www.zabbix.com/documentation/2.2/manual/installation/install_from_packages
-- sudo wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
-- sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
-- sudo apt-get -q update
-- sudo apt-get -qy install zabbix-server-mysql zabbix-frontend-php
-- sudo service apache2 restart
+  # https://www.zabbix.com/documentation/2.2/manual/installation/install_from_packages
+  - sudo wget http://repo.zabbix.com/zabbix/2.2/ubuntu/pool/main/z/zabbix-release/zabbix-release_2.2-1+trusty_all.deb
+  - sudo dpkg -i zabbix-release_2.2-1+trusty_all.deb
+  - sudo apt-get -q update
+  - sudo apt-get -qy install zabbix-server-mysql zabbix-frontend-php
+  - sudo cp .travis/apache.conf /etc/apache2/conf-available/zabbix.conf
+  # - sudo cp .travis/zabbix_server.conf /etc/zabbix/zabbix_server.conf
+  - sudo cp .travis/zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
+  - DB_PASS=$(sudo grep '^DBPassword=.*$' /etc/zabbix/zabbix_server.conf | cut -d '=' -f2)
+  - sudo sed -i "s/REPLACEME_PASSWORD_REPLACEME/$DB_PASS/" /etc/zabbix/web/zabbix.conf.php
+  - sudo service apache2 restart
 
 before_script:
-- bundle
-- bundle exec ./.travis/create_zabbix_objects.rb
+  - bundle
+  - bundle exec ./.travis/create_zabbix_objects.rb
 
 script:
-- bundle exec rspec
+  - bundle exec rspec
